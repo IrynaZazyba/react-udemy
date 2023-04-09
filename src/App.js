@@ -1,10 +1,11 @@
 import logo from "./logo.svg";
 import "./App.css";
+import { useState } from "react";
 import Expenses from "./components/Expenses/Expenses";
 import NewExpense from "./components/NewExpense/NewExpense";
 
 const App = () => {
-  const expences = [
+  const [expences, setExpenses] = useState([
     {
       id: "e1",
       title: "Toilet Paper",
@@ -24,13 +25,18 @@ const App = () => {
       amount: 450,
       date: new Date(2021, 5, 12),
     },
-  ];
+  ]);
 
+  const addExpenseHandler = (expense) => {
+    console.log('inApp.js');
+    console.log(expense);
+    setExpenses((prevState)=>[...prevState,expense]);
+  }
   return (
     <div>
-    <h2>Let's get started!</h2>
-    <NewExpense/>
-    <Expenses expences={expences}/>
+      <h2>Let's get started!</h2>
+      <NewExpense onAddExpense={addExpenseHandler} />
+      <Expenses expences={expences} />
     </div>
   );
 }
